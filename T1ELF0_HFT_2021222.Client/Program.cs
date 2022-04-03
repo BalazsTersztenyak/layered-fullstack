@@ -1,4 +1,5 @@
 ﻿using System;
+using T1ELF0_HFT_2021222.Repository;
 
 namespace T1ELF0_HFT_2021222.Client
 {
@@ -7,6 +8,7 @@ namespace T1ELF0_HFT_2021222.Client
 		static void Main(string[] args)
 		{
 			Console.WriteLine("Hello World!");
+			CarRentalDbContext ctx = new CarRentalDbContext();
 		}
 	}
 }
