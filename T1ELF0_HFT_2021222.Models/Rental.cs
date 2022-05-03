@@ -16,7 +16,6 @@ namespace T1ELF0_HFT_2021222.Models
 		[ForeignKey(nameof(Car))]
 		public int CarId { get; set; }
 
-		[StringLength(20)]
 		public string Date { get; set; }
 	}
 }

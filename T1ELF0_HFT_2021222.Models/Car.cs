@@ -15,13 +15,10 @@ namespace T1ELF0_HFT_2021222.Models
 		[NotMapped]
 		public virtual Brand Brand { get; set; }
 
-		[StringLength(20)]
 		public string Model { get; set; }
 
-		[Range(0, 30)]
 		public int Age { get; set; }
 
-		[Range(100, 500)]
 		public int Price { get; set; }
 	}
 }

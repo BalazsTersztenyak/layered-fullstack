@@ -13,7 +13,6 @@ namespace T1ELF0_HFT_2021222.Models
 		[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
 		public int Id { get; set; }
 
-		[StringLength(20)]
 		public string Name { get; set; }
 	}
 }
