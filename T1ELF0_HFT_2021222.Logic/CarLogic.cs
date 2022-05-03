@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Reflection;
@@ -38,14 +39,14 @@ namespace T1ELF0_HFT_2021222.Logic
 			this.repo.Delete(id);
 		}
 
-		public Car Read(int id)
+		public IEnumerable<Car> Read(int id)
 		{
 			if (this.repo.Read(id) == null)
 			{
 				throw new Exception("Item not found");
 			}
 
-			return this.repo.Read(id);
+			return this.repo.Read(id) as IEnumerable<Car>;
 		}
 
 		public IQueryable<Car> ReadAll()
@@ -63,7 +64,7 @@ namespace T1ELF0_HFT_2021222.Logic
 			this.repo.Update(item);
 		}
 
-		public IQueryable CountByBrand()
+		public IEnumerable<BrandCount> CountByBrand()
 		{
 			var q = from car in repo.ReadAll()
 					join brand in brandRepo.ReadAll()
@@ -75,13 +76,19 @@ namespace T1ELF0_HFT_2021222.Logic
 					};
 			var q2 = from item in q
 					 group item by item.Brand into g
-					 select new
+					 select new BrandCount()
 					 {
-						 Brand = g.Key,
+						 Name = g.Key,
 						 Count = q.Where(c => c.Brand == g.Key).Select(c => c.Car).Count()
 					 };
 
 			return q2;
 		}
+	}
+
+	public class BrandCount
+	{
+		public string Name { get; set; }
+		public int Count { get; set; }
 	}
 }
