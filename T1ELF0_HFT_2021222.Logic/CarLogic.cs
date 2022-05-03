@@ -1,5 +1,7 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Reflection;
 using T1ELF0_HFT_2021222.Models;
 using T1ELF0_HFT_2021222.Repository;
 
@@ -18,6 +20,11 @@ namespace T1ELF0_HFT_2021222.Logic
 
 		public void Create(Car item)
 		{
+			if (Read(item.Id) != null)
+			{
+				throw new Exception("Id already in use");
+			}	
+
 			this.repo.Create(item);
 		}
 
