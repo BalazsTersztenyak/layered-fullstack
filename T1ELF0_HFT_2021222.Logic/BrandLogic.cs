@@ -34,14 +34,14 @@ namespace T1ELF0_HFT_2021222.Logic
 			this.repo.Delete(id);
 		}
 
-		public Brand Read(int id)
+		public IEnumerable<Brand> Read(int id)
 		{
 			if (this.repo.Read(id) == null)
 			{
 				throw new Exception("Item not found");
 			}
 
-			return this.repo.Read(id);
+			return this.repo.Read(id) as IEnumerable<Brand>;
 		}
 
 		public IQueryable<Brand> ReadAll()
@@ -59,7 +59,7 @@ namespace T1ELF0_HFT_2021222.Logic
 			this.repo.Update(item);
 		}
 
-		public IQueryable AVGByBrand()
+		public IEnumerable<BrandAVG> AVGByBrand()
 		{
 			var q = from brand in repo.ReadAll()
 					join car in carRepo.ReadAll()
@@ -71,13 +71,19 @@ namespace T1ELF0_HFT_2021222.Logic
 					};
 			var q2 = from item in q
 					 group item by item.Brand into g
-					 select new
+					 select new BrandAVG()
 					 {
-						 Brand = g.Key,
+						 Name = g.Key,
 						 AVG = q.Where(c => c.Brand == g.Key).Select(c => c.Price).Average()
 					 };
 
 			return q2;
 		}
+	}
+
+	public class BrandAVG
+	{
+		public string Name { get; set; }
+		public double AVG { get; set; }
 	}
 }
