@@ -21,6 +21,11 @@ namespace T1ELF0_HFT_2021222.Logic
 
 		public void Create(Brand item)
 		{
+			if (Read(item.Id) != null)
+			{
+				throw new Exception("Id already in use");
+			}
+
 			this.repo.Create(item);
 		}
 
