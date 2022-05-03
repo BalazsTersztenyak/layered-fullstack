@@ -41,14 +41,14 @@ namespace T1ELF0_HFT_2021222.Logic
 			this.repo.Delete(id);
 		}
 
-		public Rental Read(int id)
+		public IEnumerable<Rental> Read(int id)
 		{
 			if (this.repo.Read(id) == null)
 			{
 				throw new Exception("Item not found");
 			}
 
-			return this.repo.Read(id);
+			return this.repo.Read(id) as IEnumerable<Rental>;
 		}
 
 		public IQueryable<Rental> ReadAll()
@@ -66,28 +66,7 @@ namespace T1ELF0_HFT_2021222.Logic
 			this.repo.Update(item);
 		}
 
-		public IQueryable AVGByRental()
-		{
-			var q = from rental in repo.ReadAll()
-					join car in carRepo.ReadAll()
-					on rental.CarId equals car.Id
-					select new
-					{
-						Rental = rental.Id,
-						Price = car.Price
-					};
-			var q2 = from item in q
-					 group item by item.Rental into g
-					 select new
-					 {
-						 Brand = g.Key,
-						 AVG = q.Where(c => c.Rental == g.Key).Select(c => c.Price).Average()
-					 };
-
-			return q2;
-		}
-
-		public IQueryable RentCountByBrand()
+		public IEnumerable<CountByBrand> RentCountByBrand()
 		{
 			var q = from rental in repo.ReadAll()
 					join car in carRepo.ReadAll()
@@ -101,16 +80,16 @@ namespace T1ELF0_HFT_2021222.Logic
 					};
 			var q2 = from item in q
 					 group item by item.Brand into g
-					 select new
+					 select new CountByBrand()
 					 {
-						 Brand = g.Key,
+						 Name = g.Key,
 						 Count = q.Where(r => r.Brand == g.Key).Count()
 					 };
 
 			return q2;
 		}
 
-		public IQueryable RentedAfterMarch()
+		public IEnumerable<Car> RentedAfterMarch()
 		{
 			var q = from rental in repo.ReadAll()
 					join car in carRepo.ReadAll()
@@ -125,7 +104,7 @@ namespace T1ELF0_HFT_2021222.Logic
 			return q2;
 		}
 
-		public Car MostPopular()
+		public IEnumerable<Car> MostPopular()
 		{
 			var q = from rental in repo.ReadAll()
 					join car in carRepo.ReadAll()
@@ -143,7 +122,13 @@ namespace T1ELF0_HFT_2021222.Logic
 						 Count = q.Where(r => r.Car == g.Key).Count()
 					 }).OrderByDescending(c => c.Count).FirstOrDefault();
 
-			return carRepo.Read(q2.Car);
+			return carRepo.Read(q2.Car) as IEnumerable<Car>;
 		}
+	}
+
+	public class CountByBrand
+	{
+		public int Count { get; set; }
+		public string Name { get; set; }
 	}
 }
