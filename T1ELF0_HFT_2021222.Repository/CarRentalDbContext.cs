@@ -46,11 +46,11 @@ namespace T1ELF0_HFT_2021222.Repository
 			Car audi1 = new Car() { Id = 5, BrandId = audi.Id, Price = 20000, Model = "Audi A3" };
 			Car audi2 = new Car() { Id = 6, BrandId = audi.Id, Price = 25000, Model = "Audi A4" };
 
-			Rental rent1 = new Rental() { Id = 1, CarId = 1, Date = "2022.03.03" };
-			Rental rent2 = new Rental() { Id = 2, CarId = 2, Date = "2022.04.03" };
-			Rental rent3 = new Rental() { Id = 3, CarId = 1, Date = "2022.04.04" };
-			Rental rent4 = new Rental() { Id = 4, CarId = 1, Date = "2022.03.03" };
-			Rental rent5 = new Rental() { Id = 5, CarId = 1, Date = "2022.03.03" };
+			Rental rent1 = new Rental() { Id = 1, CarId = 1, Date = "2022.02.03" };
+			Rental rent2 = new Rental() { Id = 2, CarId = 2, Date = "2020.04.03" };
+			Rental rent3 = new Rental() { Id = 3, CarId = 3, Date = "2022.04.04" };
+			Rental rent4 = new Rental() { Id = 4, CarId = 2, Date = "2022.05.03" };
+			Rental rent5 = new Rental() { Id = 5, CarId = 6, Date = "2022.03.08" };
 
 			modelBuilder.Entity<Brand>().HasData(new Brand[]
 			{

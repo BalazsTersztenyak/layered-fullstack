@@ -8,10 +8,12 @@ namespace T1ELF0_HFT_2021222.Logic
 	public class CarLogic
 	{
 		IRepository<Car> repo;
+		IRepository<Brand> brandRepo;
 
-		public CarLogic(IRepository<Car> repo)
+		public CarLogic(IRepository<Car> repo, IRepository<Brand> brandRepo)
 		{
 			this.repo = repo;
+			this.brandRepo = brandRepo;
 		}
 
 		public void Create(Car item)
@@ -52,6 +54,27 @@ namespace T1ELF0_HFT_2021222.Logic
 			}
 
 			this.repo.Update(item);
+		}
+
+		public IQueryable CountByBrand()
+		{
+			var q = from car in repo.ReadAll()
+					join brand in brandRepo.ReadAll()
+					on car.BrandId equals brand.Id
+					select new
+					{
+						Brand = brand.Name,
+						Car = car.Id
+					};
+			var q2 = from item in q
+					 group item by item.Brand into g
+					 select new
+					 {
+						 Brand = g.Key,
+						 Count = q.Where(c => c.Brand == g.Key).Select(c => c.Car).Count()
+					 };
+
+			return q2;
 		}
 	}
 }

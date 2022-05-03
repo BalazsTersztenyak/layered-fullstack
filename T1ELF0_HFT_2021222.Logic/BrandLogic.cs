@@ -11,10 +11,12 @@ namespace T1ELF0_HFT_2021222.Logic
 	public class BrandLogic
 	{
 		IRepository<Brand> repo;
+		IRepository<Car> carRepo;
 
-		public BrandLogic(IRepository<Brand> repo)
+		public BrandLogic(IRepository<Brand> repo, IRepository<Car> carRepo)
 		{
 			this.repo = repo;
+			this.carRepo = carRepo;
 		}
 
 		public void Create(Brand item)
@@ -55,6 +57,27 @@ namespace T1ELF0_HFT_2021222.Logic
 			}
 
 			this.repo.Update(item);
+		}
+
+		public IQueryable AVGByBrand()
+		{
+			var q = from brand in repo.ReadAll()
+					join car in carRepo.ReadAll()
+					on brand.Id equals car.BrandId
+					select new
+					{
+						Brand = brand.Name,
+						Price = car.Price
+					};
+			var q2 = from item in q
+					 group item by item.Brand into g
+					 select new
+					 {
+						 Brand = g.Key,
+						 AVG = q.Where(c => c.Brand == g.Key).Select(c => c.Price).Average()
+					 };
+
+			return q2;
 		}
 	}
 }
