@@ -26,7 +26,7 @@ namespace T1ELF0_HFT_2021222.Endpoint.Controllers
 		}
 
 		[HttpGet("{id}")]
-		public IEnumerable<Car> Read(int id)
+		public Car Read(int id)
 		{
 			return this.logic.Read(id);
 		}

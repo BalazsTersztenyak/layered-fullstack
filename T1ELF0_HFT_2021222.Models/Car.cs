@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace T1ELF0_HFT_2021222.Models
 {
@@ -13,6 +14,7 @@ namespace T1ELF0_HFT_2021222.Models
 		public int BrandId { get; set; }
 
 		[NotMapped]
+		[JsonIgnore]
 		public virtual Brand Brand { get; set; }
 
 		public string Model { get; set; }

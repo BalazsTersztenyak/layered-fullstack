@@ -19,7 +19,7 @@ namespace T1ELF0_HFT_2021222.Repository
 		public override void Update(Car item)
 		{
 			var old = Read(item.Id);
-			foreach (var prop in old.GetType().GetProperties())
+			foreach (var prop in item.GetType().GetProperties())
 			{
 				prop.SetValue(old, prop.GetValue(item));
 			}

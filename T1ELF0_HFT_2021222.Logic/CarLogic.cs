@@ -21,32 +21,40 @@ namespace T1ELF0_HFT_2021222.Logic
 
 		public void Create(Car item)
 		{
-			if (Read(item.Id) != null)
+			try
 			{
-				throw new Exception("Id already in use");
-			}	
-
-			this.repo.Create(item);
+				Read(item.Id);
+			}
+			catch (Exception)
+			{
+				this.repo.Create(item);
+				return;
+			}
+			throw new Exception("Id already in use");
 		}
 
 		public void Delete(int id)
 		{
-			if (this.repo.Read(id) == null)
+			try
 			{
-				throw new Exception("Item not found");
+				Read(id);
 			}
-
+			catch (Exception)
+			{
+				return;
+			}
 			this.repo.Delete(id);
 		}
 
-		public IEnumerable<Car> Read(int id)
+		public Car Read(int id)
 		{
-			if (this.repo.Read(id) == null)
+			var q = this.repo.Read(id);
+			if (q == null)
 			{
 				throw new Exception("Item not found");
 			}
 
-			return this.repo.Read(id) as IEnumerable<Car>;
+			return q;
 		}
 
 		public IQueryable<Car> ReadAll()
