@@ -26,7 +26,7 @@ namespace T1ELF0_HFT_2021222.Endpoint.Controllers
 		}
 
 		[HttpGet("{id}")]
-		public IEnumerable<Rental> Read(int id)
+		public Rental Read(int id)
 		{
 			return this.logic.Read(id);
 		}
@@ -62,7 +62,7 @@ namespace T1ELF0_HFT_2021222.Endpoint.Controllers
 		}
 
 		[HttpGet("/MostPopular")]
-		public IEnumerable<Car> MostPopular()
+		public Car MostPopular()
 		{
 			return this.logic.MostPopular();
 		}

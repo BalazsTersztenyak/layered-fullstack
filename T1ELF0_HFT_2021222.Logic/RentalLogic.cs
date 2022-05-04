@@ -23,32 +23,40 @@ namespace T1ELF0_HFT_2021222.Logic
 
 		public void Create(Rental item)
 		{
-			if (Read(item.Id) != null)
+			try
 			{
-				throw new Exception("Id already in use");
+				Read(item.Id);
 			}
-
-			this.repo.Create(item);
+			catch (Exception)
+			{
+				this.repo.Create(item);
+				return;
+			}
+			throw new Exception("Id already in use");
 		}
 
 		public void Delete(int id)
 		{
-			if (this.repo.Read(id) == null)
+			try
 			{
-				throw new Exception("Item not found");
+				Read(id);
 			}
-
+			catch (Exception)
+			{
+				return;
+			}
 			this.repo.Delete(id);
 		}
 
-		public IEnumerable<Rental> Read(int id)
+		public Rental Read(int id)
 		{
-			if (this.repo.Read(id) == null)
+			var q = this.repo.Read(id);
+			if (q == null)
 			{
 				throw new Exception("Item not found");
 			}
 
-			return this.repo.Read(id) as IEnumerable<Rental>;
+			return q;
 		}
 
 		public IQueryable<Rental> ReadAll()
@@ -104,7 +112,7 @@ namespace T1ELF0_HFT_2021222.Logic
 			return q2;
 		}
 
-		public IEnumerable<Car> MostPopular()
+		public Car MostPopular()
 		{
 			var q = from rental in repo.ReadAll()
 					join car in carRepo.ReadAll()
@@ -122,7 +130,7 @@ namespace T1ELF0_HFT_2021222.Logic
 						 Count = q.Where(r => r.Car == g.Key).Count()
 					 }).OrderByDescending(c => c.Count).FirstOrDefault();
 
-			return carRepo.Read(q2.Car) as IEnumerable<Car>;
+			return carRepo.Read(q2.Car);
 		}
 	}
 
