@@ -3,8 +3,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+using T1ELF0_HFT_2021222.Logic;
+using T1ELF0_HFT_2021222.Models;
 
 namespace T1ELF0_HFT_2021222.Endpoint.Controllers
 {
@@ -12,36 +12,47 @@ namespace T1ELF0_HFT_2021222.Endpoint.Controllers
 	[ApiController]
 	public class CarController : ControllerBase
 	{
-		// GET: api/<CarController>
+		CarLogic logic;
+
+		public CarController(CarLogic logic)
+		{
+			this.logic = logic;
+		}
+
 		[HttpGet]
-		public IEnumerable<string> Get()
+		public IQueryable<Car> ReadAll()
 		{
-			return new string[] { "value1", "value2" };
+			return this.logic.ReadAll();
 		}
 
-		// GET api/<CarController>/5
 		[HttpGet("{id}")]
-		public string Get(int id)
+		public IEnumerable<Car> Read(int id)
 		{
-			return "value";
+			return this.logic.Read(id);
 		}
 
-		// POST api/<CarController>
 		[HttpPost]
-		public void Post([FromBody] string value)
+		public void Create([FromBody] Car value)
 		{
+			this.logic.Create(value);
 		}
 
-		// PUT api/<CarController>/5
-		[HttpPut("{id}")]
-		public void Put(int id, [FromBody] string value)
+		[HttpPut]
+		public void Update([FromBody] Car value)
 		{
+			this.logic.Update(value);
 		}
 
-		// DELETE api/<CarController>/5
 		[HttpDelete("{id}")]
 		public void Delete(int id)
 		{
+			this.logic.Delete(id);
+		}
+
+		[HttpGet("/CountByBrand")]
+		public IEnumerable<BrandCount> CountByBrand()
+		{
+			return this.logic.CountByBrand();
 		}
 	}
 }
