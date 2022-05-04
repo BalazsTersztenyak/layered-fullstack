@@ -26,7 +26,7 @@ namespace T1ELF0_HFT_2021222.Endpoint.Controllers
 		}
 
 		[HttpGet("{id}")]
-		public IEnumerable<Brand> Read(int id)
+		public Brand Read(int id)
 		{
 			return this.logic.Read(id);
 		}

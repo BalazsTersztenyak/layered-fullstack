@@ -31,7 +31,7 @@ namespace T1ELF0_HFT_2021222.Endpoint
 		public void ConfigureServices(IServiceCollection services)
 		{
 
-			services.AddTransient<CarRentalDbContext>();
+			services.AddSingleton<CarRentalDbContext>();
 
 			services.AddTransient<IRepository<Car>, CarRepository>();
 			services.AddTransient<IRepository<Brand>, BrandRepository>();
