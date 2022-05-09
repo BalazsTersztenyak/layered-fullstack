@@ -49,19 +49,19 @@ namespace T1ELF0_HFT_2021222.Endpoint.Controllers
 			this.logic.Delete(id);
 		}
 
-		[HttpGet("/RentCountByBrand")]
+		[HttpGet("RentCountByBrand")]
 		public IEnumerable<CountByBrand> RentCountByBrand()
 		{
 			return this.logic.RentCountByBrand();
 		}
 
-		[HttpGet("/RentedAfterMarch")]
+		[HttpGet("RentedAfterMarch")]
 		public IEnumerable<Car> RentedAfterMarch()
 		{
 			return this.logic.RentedAfterMarch();
 		}
 
-		[HttpGet("/MostPopular")]
+		[HttpGet("MostPopular")]
 		public Car MostPopular()
 		{
 			return this.logic.MostPopular();

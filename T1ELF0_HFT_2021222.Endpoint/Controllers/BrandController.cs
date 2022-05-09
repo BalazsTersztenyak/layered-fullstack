@@ -49,10 +49,11 @@ namespace T1ELF0_HFT_2021222.Endpoint.Controllers
 			this.logic.Delete(id);
 		}
 
-		[HttpGet("/AVGByBrand")]
+		[HttpGet("AVGByBrand")]
 		public IEnumerable<BrandAVG> AVGByBrand()
 		{
-			return this.logic.AVGByBrand();
+			var q = this.logic.AVGByBrand();
+			return q;
 		}
 	}
 }

@@ -7,6 +7,24 @@ namespace T1ELF0_HFT_2021222.Client
 {
 	class Program
 	{
+		internal class RentsByBrand
+		{
+			public int Count { get; set; }
+			public string Name { get; set; }
+		}
+
+		internal class BrandCount
+		{
+			public string Name { get; set; }
+			public int Count { get; set; }
+		}
+
+		internal class BrandAVG
+		{
+			public string Name { get; set; }
+			public double AVG { get; set; }
+		}
+
 		static RestService rest;
 
 		static void Main(string[] args)
@@ -60,34 +78,52 @@ namespace T1ELF0_HFT_2021222.Client
 		private static void MostPopular()
 		{
 			Car car = rest.Get<Car>("MostPopular", "rental");
-			Console.WriteLine($"Most popular car: {car.Brand}, {car.Model}, {car.Age}, {car.Price}");
+			Console.WriteLine($"Most popular car: \nBrandID: {car.BrandId}, Model: {car.Model}, Age: {car.Age}, Price: {car.Price}");
 			Console.ReadLine();
 		}
 
 		private static void RentedAfterMarch()
 		{
-			var cars = rest.Get<KeyValuePair<int, IEnumerable<Car>>>("RentedAfterMarch", "rental");
-			Console.WriteLine("Rented after March");
-			foreach (var car in cars.Value)
+			var cars = rest.Get<IEnumerable<Car>>("RentedAfterMarch", "rental");
+			Console.WriteLine("Cars rented after March");
+			foreach (var car in cars)
 			{
-				Console.WriteLine($"{car.Id}, {car.Brand}, {car.Model}, {car.Age}, {car.Price}");
-				Console.ReadLine();
+				Console.WriteLine($"CarID: {car.Id}, BrandID: {car.BrandId}, Model: {car.Model}, Age: {car.Age}, Price: {car.Price}");
 			}
+			Console.ReadLine();
 		}
 
 		private static void RentCountByBrand()
 		{
-			throw new NotImplementedException();
+			var brands = rest.Get<IEnumerable<RentsByBrand>>("RentCountByBrand", "rental");
+			Console.WriteLine("Rent counts by brand: ");
+			foreach (var brand in brands)
+			{
+				Console.WriteLine($"Brand: {brand.Name}, Count: {brand.Count}");
+			}
+			Console.ReadLine();
 		}
 
 		private static void CountByBrand()
 		{
-			throw new NotImplementedException();
+			var brands = rest.Get<IEnumerable<BrandCount>>("CountByBrand", "car");
+			Console.WriteLine("Car counts by brand: ");
+			foreach (var brand in brands)
+			{
+				Console.WriteLine($"Brand: {brand.Name}, Count: {brand.Count}");
+			}
+			Console.ReadLine();
 		}
 
 		private static void AVGByBrand()
 		{
-			throw new NotImplementedException();
+			var brands = rest.Get<IEnumerable<BrandAVG>>("AVGByBrand", "brand");
+			Console.WriteLine("Average price per brand: ");
+			foreach (var brand in brands)
+			{
+				Console.WriteLine($"Brand: {brand.Name}, Count: {brand.AVG}");
+			}
+			Console.ReadLine();
 		}
 
 		private static void Delete(string v)

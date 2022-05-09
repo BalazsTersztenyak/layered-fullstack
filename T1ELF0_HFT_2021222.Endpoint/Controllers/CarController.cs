@@ -49,7 +49,7 @@ namespace T1ELF0_HFT_2021222.Endpoint.Controllers
 			this.logic.Delete(id);
 		}
 
-		[HttpGet("/CountByBrand")]
+		[HttpGet("CountByBrand")]
 		public IEnumerable<BrandCount> CountByBrand()
 		{
 			return this.logic.CountByBrand();
