@@ -8,7 +8,7 @@ using T1ELF0_HFT_2021222.Repository;
 
 namespace T1ELF0_HFT_2021222.Logic
 {
-	public class CarLogic
+	public class CarLogic : ICarLogic
 	{
 		IRepository<Car> repo;
 		IRepository<Brand> brandRepo;

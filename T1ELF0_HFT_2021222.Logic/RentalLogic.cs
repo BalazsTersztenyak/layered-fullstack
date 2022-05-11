@@ -8,7 +8,7 @@ using T1ELF0_HFT_2021222.Repository;
 
 namespace T1ELF0_HFT_2021222.Logic
 {
-	public class RentalLogic
+	public class RentalLogic : IRentalLogic
 	{
 		IRepository<Rental> repo;
 		IRepository<Car> carRepo;
@@ -123,12 +123,12 @@ namespace T1ELF0_HFT_2021222.Logic
 						Rental = rental.Id
 					};
 			var q2 = (from item in q
-					 group item by item.Car into g
-					 select new
-					 {
-						 Car = g.Key,
-						 Count = q.Where(r => r.Car == g.Key).Count()
-					 }).OrderByDescending(c => c.Count).FirstOrDefault();
+					  group item by item.Car into g
+					  select new
+					  {
+						  Car = g.Key,
+						  Count = q.Where(r => r.Car == g.Key).Count()
+					  }).OrderByDescending(c => c.Count).FirstOrDefault();
 
 			return carRepo.Read(q2.Car);
 		}
