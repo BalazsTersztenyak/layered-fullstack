@@ -31,7 +31,7 @@ namespace T1ELF0_HFT_2021222.Client
 		{
 			Console.WriteLine("Hello World!");
 
-			rest = new RestService("http://localhost:5000/", "car");
+			rest = new RestService("http://localhost:42910/", "car");
 
 			var nonCrudSubMenu = new ConsoleMenu(args, level: 1)
 				.Add("AVG by brands", () => AVGByBrand())

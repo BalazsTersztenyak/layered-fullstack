@@ -5,7 +5,7 @@ using System.Text.Json.Serialization;
 
 namespace T1ELF0_HFT_2021222.Models
 {
-	public class Car
+	public class Car :IEntity
 	{
 		[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
 		public int Id { get; set; }

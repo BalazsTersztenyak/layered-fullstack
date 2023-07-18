@@ -12,6 +12,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using T1ELF0_HFT_2021222.Endpoint.Services;
 using T1ELF0_HFT_2021222.Logic;
 using T1ELF0_HFT_2021222.Models;
 using T1ELF0_HFT_2021222.Repository;
@@ -41,11 +42,15 @@ namespace T1ELF0_HFT_2021222.Endpoint
 			services.AddTransient<BrandLogic>();
 			services.AddTransient<RentalLogic>();
 
+			services.AddSignalR();
+
 			services.AddControllers();
 			services.AddSwaggerGen(c =>
 			{
 				c.SwaggerDoc("v1", new OpenApiInfo { Title = "T1ELF0_HFT_2021222.Endpoint", Version = "v1" });
 			});
+
+			services.AddCors();
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -67,6 +72,12 @@ namespace T1ELF0_HFT_2021222.Endpoint
 				await context.Response.WriteAsJsonAsync(response);
 			}));
 
+			app.UseCors(x => x
+					.AllowCredentials()
+					.AllowAnyMethod()
+					.AllowAnyHeader()
+					.WithOrigins("http://localhost:12307"));
+
 			app.UseRouting();
 
 			app.UseAuthorization();
@@ -74,7 +85,9 @@ namespace T1ELF0_HFT_2021222.Endpoint
 			app.UseEndpoints(endpoints =>
 			{
 				endpoints.MapControllers();
+				endpoints.MapHub<SignalRHub>("/hub");
 			});
+
 		}
 	}
 }

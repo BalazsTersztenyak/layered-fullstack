@@ -1,0 +1,106 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Car Rental UI</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+    <h1>Car Catalog</h1>
+
+    <div id="carform">
+        <label>ID</label>
+        <input type="number" id="carid" /><br />
+        <label>Brand ID</label>
+        <input type="number" id="carbrandid" /><br />
+        <label>Car Model</label>
+        <input type="text" id="carmodel" /><br />
+        <label>Car Age</label>
+        <input type="number" id="carage" /><br />
+        <label>Car Price</label>
+        <input type="number" id="carprice" /><br />
+        <button type="button" onclick="createcar()">Add Car</button>
+        <button type="button" onclick="updatecar()">Update Car</button>
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Brand ID</th>
+                <th>Model</th>
+                <th>Age</th>
+                <th>Price</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody id="carresult">
+        </tbody>
+    </table>
+
+    <h1>Brand Catalog</h1>
+
+    <div id="brandform">
+        <label>ID</label>
+        <input type="number" id="brandid" /><br />
+        <label>Brand Name</label>
+        <input type="text" id="brandname" /><br />
+        <button type="button" onclick="createbrand()">Add Brand</button>
+        <button type="button" onclick="updatebrand()">Update Brand</button>
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Brand Name</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody id="brandresult">
+        </tbody>
+    </table>
+
+    <h1>Rental Catalog</h1>
+
+    <div id="rentalform">
+        <label>ID</label>
+        <input type="number" id="rentalid" /><br />
+        <label>Car ID</label>
+        <input type="text" id="rentalcarid" /><br />
+        <label>Date</label>
+        <input type="date" id="rentaldate" /><br />
+        <button type="button" onclick="createrental()">Add Rental</button>
+        <button type="button" onclick="updaterental()">Update Rental</button>
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Car ID</th>
+                <th>Date</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody id="rentalresult">
+        </tbody>
+    </table>
+
+    <h1>Non-CRUD</h1>
+
+    <div id="noncrudform">
+        <button type="button" onclick="rentcountbybrand()">Rent Counts by Brand</button>
+        <button type="button" onclick="rentedaftermarch()">Rented After March</button>
+        <button type="button" onclick="mostpopular()">Most Popular Car</button>
+        <button type="button" onclick="countbybrand()">Car Count per Brand</button>
+        <button type="button" onclick="avgbybrand()">AVG by Brand</button>
+    </div>
+
+    <table id="noncrudresult">
+    </table>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/6.0.1/signalr.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

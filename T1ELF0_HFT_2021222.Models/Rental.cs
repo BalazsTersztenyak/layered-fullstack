@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace T1ELF0_HFT_2021222.Models
 {
-	public class Rental
+	public class Rental : IEntity
 	{
 		[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
 		public int Id { get; set; }
