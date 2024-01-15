@@ -1,4 +1,4 @@
 # layered-fullstack-app
-Uni project multy semester
+Uni project multi semester
 mainly C#, some javascript, html, css
 wpf app
